@@ -1,0 +1,96 @@
+/* Background with eco-friendly theme */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 100, 0, 0.6), rgba(0, 50, 0, 0.6)),
+              url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1950&q=80");
+  background-size: cover;
+  background-position: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Title & subtitle */
+.login-title {
+  font-size: 2rem;
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+.login-subtitle {
+  font-size: 1rem;
+  color: #388e3c;
+  margin-bottom: 25px;
+}
+
+/* Form */
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #a5d6a7;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+.login-form input:focus {
+  border: 1px solid #2e7d32;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2e7d32;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.login-btn:hover {
+  background: #1b5e20;
+  transform: scale(1.02);
+}
+
+/* Links */
+.login-links {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+.login-links .link {
+  color: #2e7d32;
+  font-weight: 500;
+  text-decoration: none;
+}
+.login-links .link:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

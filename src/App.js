@@ -10,7 +10,7 @@ import AdminDashboard from "./Frontend/AdminDashboard";
 
 function App() {
   return (
-    <Router>
+    
       <Routes>
         <Route path="/" element={<CompanyLogin />} />
         <Route path="/company-register" element={<CompanyRegister />} />
@@ -18,7 +18,7 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
-    </Router>
+   
   );
 }
 

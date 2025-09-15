@@ -1,5 +1,5 @@
 // src/Frontend/CompanyDashboard.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import { FaUsers, FaTree, FaHandHoldingHeart, FaChartLine } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../css_folder/CompanyDashboard.css";
@@ -8,11 +8,24 @@ function CompanyDashboard() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Get company data passed from registration
-  const company = location.state?.company;
+  // Get company data (from navigation state or localStorage)
+  const company = location.state?.company || JSON.parse(localStorage.getItem("company"));
+
+  // Redirect to login if no company or token
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token || !company) {
+      navigate("/"); // redirect to login if not logged in
+    }
+  }, [company, navigate]);
 
   const handleLogout = () => {
-    navigate("/"); // redirect to login page
+    // Clear stored session
+    localStorage.removeItem("token");
+    localStorage.removeItem("company");
+
+    // Redirect to login
+    navigate("/");
   };
 
   return (

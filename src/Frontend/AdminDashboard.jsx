@@ -1,21 +1,32 @@
-import React from "react";
+// src/Frontend/AdminDashboard.jsx
+import React, { useEffect, useState } from "react";
 import { FaBuilding, FaUsersCog, FaClipboardList, FaLeaf } from "react-icons/fa";
-import { useNavigate } from "react-router-dom"; // 👈 import navigation
-//import "./AdminDashboard.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../css_folder/AdminDashboard.css";
-
 
 function AdminDashboard() {
   const navigate = useNavigate();
+  const [companies, setCompanies] = useState([]);
 
   const handleLogout = () => {
-    // remove stored token/session
-    localStorage.removeItem("adminToken"); 
+    localStorage.removeItem("adminToken");
     sessionStorage.clear();
-
-    // navigate to admin login page
     navigate("/admin-login");
   };
+
+  // Fetch registered companies
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/companies");
+        setCompanies(res.data);
+      } catch (err) {
+        console.error("Error fetching companies:", err);
+      }
+    };
+    fetchCompanies();
+  }, []);
 
   return (
     <div className="admin-dashboard">
@@ -33,7 +44,7 @@ function AdminDashboard() {
           <div className="icon"><FaBuilding /></div>
           <div>
             <p className="stat-label">Registered Companies</p>
-            <h2 className="stat-value">120</h2>
+            <h2 className="stat-value">{companies.length}</h2>
           </div>
         </div>
 
@@ -70,33 +81,25 @@ function AdminDashboard() {
             <tr>
               <th>Company Name</th>
               <th>Email</th>
-              <th>Sector</th>
-              <th>Location</th>
-              <th>Contribution</th>
+              <th>Contact</th>
+              <th>Address</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>EcoBuild Pvt. Ltd.</td>
-              <td>info@ecobuild.com</td>
-              <td>Construction</td>
-              <td>Bhopal</td>
-              <td>Planted 1,200 Trees</td>
-            </tr>
-            <tr>
-              <td>GreenTech Solutions</td>
-              <td>contact@greentech.com</td>
-              <td>IT</td>
-              <td>Delhi</td>
-              <td>Reduced 500 tons CO₂</td>
-            </tr>
-            <tr>
-              <td>Solaris Energy</td>
-              <td>hello@solaris.com</td>
-              <td>Energy</td>
-              <td>Mumbai</td>
-              <td>Installed 200 Solar Panels</td>
-            </tr>
+            {companies.length > 0 ? (
+              companies.map((company) => (
+                <tr key={company._id}>
+                  <td>{company.companyName}</td>
+                  <td>{company.email}</td>
+                  <td>{company.contact}</td>
+                  <td>{company.address}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">No companies registered yet.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>
